@@ -4,19 +4,20 @@ using FakeUnit.Repository.DbContext;
 
 namespace FakeUnit.Repository.Concret;
 
-public class IvoiceRepository
+public class InvoiceRepository: IBaseRepository<Invoice>
 {
     private readonly BaseContext _basecontext;
 
 
-
-    public IvoiceRepository(BaseContext basecontext)
+    public InvoiceRepository(BaseContext basecontext)
     {
         _basecontext = basecontext;
+
     }
-    public void Add(Invoice invoice)
+
+    public void Add(Invoice entity)
     {
-        _basecontext.Invoices.Add(invoice);
+        _basecontext.Invoices.Add(entity);
     }
 
     public void Delete(int id)
@@ -25,7 +26,7 @@ public class IvoiceRepository
         _basecontext.Invoices.Remove(invoice);
     }
 
-    public List<Invoice> GetAll()
+    public IEnumerable<Invoice> GetAll()
     {
         return _basecontext.Invoices;
     }

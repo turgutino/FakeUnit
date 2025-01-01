@@ -3,27 +3,30 @@ using FakeUnit.Repository.Abstract;
 using FakeUnit.Repository.DbContext;
 
 namespace FakeUnit.Repository.Concret;
-public class ProductRepository : IProductRepository
+
+public class ProductRepository : IBaseRepository<Product>
 {
     private readonly BaseContext _basecontext;
-    
+
 
     public ProductRepository(BaseContext basecontext)
     {
         _basecontext = basecontext;
+
     }
 
-    public void Add(Product product)
+    public void Add(Product entity)
     {
-        _basecontext.Products.Add(product);
+        _basecontext.Products.Add(entity);
     }
+
     public void Delete(int id)
     {
         var product = _basecontext.Products.FirstOrDefault(x => x.Id == id) ?? throw new Exception($"Id : {id} is false");
         _basecontext.Products.Remove(product);
     }
 
-    public List<Product> GetAll()
+    public IEnumerable<Product> GetAll()
     {
         return _basecontext.Products;
     }

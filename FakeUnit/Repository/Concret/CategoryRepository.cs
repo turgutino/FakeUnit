@@ -3,7 +3,7 @@ using FakeUnit.Repository.Abstract;
 using FakeUnit.Repository.DbContext;
 
 namespace FakeUnit.Repository.Concret;
-public class CategoryRepository : ICategoryRepository
+public class CategoryRepository : IBaseRepository<Category>
 {
     private readonly BaseContext _basecontext;
 
@@ -13,9 +13,10 @@ public class CategoryRepository : ICategoryRepository
     {
         _basecontext = basecontext;
     }
-    public void Add(Category category)
+
+    public void Add(Category entity)
     {
-        _basecontext.Categories.Add(category);
+        _basecontext.Categories.Add(entity);
     }
 
     public void Delete(int id)
@@ -24,7 +25,7 @@ public class CategoryRepository : ICategoryRepository
         _basecontext.Categories.Remove(category);
     }
 
-    public List<Category> GetAll()
+    public IEnumerable<Category> GetAll()
     {
         return _basecontext.Categories;
     }
@@ -36,14 +37,17 @@ public class CategoryRepository : ICategoryRepository
 
     public void Update(int id)
     {
-        var product = _basecontext.Categories.FirstOrDefault(x => x.Id == id) ?? throw new Exception($"Id : {id} is false");
+        var category = _basecontext.Categories.FirstOrDefault(x => x.Id == id) ?? throw new Exception($"Id : {id} is false");
         Console.WriteLine("Successfully update");
     }
+
 }
 
 
 
 
+
+ 
 
 
 
